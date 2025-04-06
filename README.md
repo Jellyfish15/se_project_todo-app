@@ -15,4 +15,4 @@ By creating various ToDos you'll never forget the important things in your daily
 
 This project is deployed on GitHub Pages:
 
-- ADD LINK HERE
+[- Click Here](https://jellyfish15.github.io/se_project_todo-app/)
