@@ -9,6 +9,8 @@ class Todo {
     this._todoCheckboxEl.addEventListener("change", () => {
       this._data.completed = !this._data.completed;
       console.log(this._data.completed);
+
+      
     });
   }
   _generateCheckboxEl() {
@@ -17,6 +19,13 @@ class Todo {
     this._todoCheckboxEl.checked = this._data.completed;
     this._todoCheckboxEl.id = `todo-${this._data.id}`;
     this._todoLabel.setAttribute("for", `todo-${this._data.id}`);
+  }
+
+  _handleDelete() {
+    // Remove the todo element from the DOM
+    this._todoElement.remove();
+    this._todoElement = null; // Clean up reference
+    console.log(`Todo with ID ${this._data.id} deleted`);
   }
 
   getView() {
@@ -29,7 +38,12 @@ class Todo {
     const todoDeleteBtn = this._todoElement.querySelector(".todo__delete-btn");
 
     todoNameEl.textContent = this._data.name;
-    // implement dates
+
+    // Handle delete button click
+    todoDeleteBtn.addEventListener("click", () => {
+        this._handleDelete();
+      });
+    
 
     this._generateCheckboxEl();
     this._setEventListeners();
