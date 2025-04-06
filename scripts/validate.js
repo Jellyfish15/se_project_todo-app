@@ -1,4 +1,4 @@
-const showInputError = (formElement, inputElement, errorMessage, settings) => {
+/*const showInputError = (formElement, inputElement, errorMessage, settings) => {
   const errorElementId = `#${inputElement.id}-error`;
   const errorElement = formElement.querySelector(errorElementId);
   inputElement.classList.add(settings.inputErrorClass);
@@ -43,7 +43,7 @@ const toggleButtonState = (inputList, buttonElement, settings) => {
   }
 };
 
-const setEventListeners = (formElement, settings) => {
+const _setEventListeners = (formElement, settings) => {
   const inputList = Array.from(
     formElement.querySelectorAll(settings.inputSelector),
   );
@@ -69,4 +69,4 @@ const enableValidation = (settings) => {
   setEventListeners(formElement, settings);
 };
 
-enableValidation(validationConfig);
+enableValidation(validationConfig, addTodoForm); */ 

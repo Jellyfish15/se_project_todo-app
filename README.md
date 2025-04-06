@@ -1,14 +1,15 @@
 # Simple Todo App
 
-Give a brief description of the project here. Feel free to give it a different name.
+A Simple Todo App that allows you to create a list of ToDos with names and dates.
 
 ## Functionality
 
-Give a more detailed explanation of the project and its functionality.
+By creating various ToDos you'll never forget the important things in your daily life again!
 
 ## Technology
 
-Give a description of the technologies and techniques used. Pictures, GIFs, or screenshots that detail the project features are recommended.
+ - Javascript
+ - Object Oriented Programming
 
 ## Deployment
 
