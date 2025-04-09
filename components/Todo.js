@@ -13,7 +13,7 @@ class Todo {
 
     const todoDeleteBtn = this._todoElement.querySelector(".todo__delete-btn");
 
-      // Handle delete button click
+    // Handle delete button click
     todoDeleteBtn.addEventListener("click", () => {
       this._handleDelete();
     });
@@ -47,7 +47,6 @@ class Todo {
 
     const todoNameEl = this._todoElement.querySelector(".todo__name");
     const todoDateEl = this._todoElement.querySelector(".todo__date");
-   
 
     todoNameEl.textContent = this._data.name;
 
@@ -58,14 +57,11 @@ class Todo {
       todoDateEl.textContent = ""; // Leave empty or set a default message
     }
 
-
-
     this._generateCheckboxEl();
     this._setEventListeners();
 
     return this._todoElement;
   }
 }
-
 
 export default Todo;
