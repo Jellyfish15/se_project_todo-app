@@ -52,10 +52,10 @@ class Todo {
     todoNameEl.textContent = this._data.name;
 
     // Set the due date (if provided)
-    if (this._data.date) {
+    if (this._data.date && !isNaN(new Date(this._data.date).getTime())) {
       todoDateEl.textContent = `Due: ${this._formatDate(this._data.date)}`;
     } else {
-      todoDateEl.textContent = "No due date";
+      todoDateEl.textContent = ""; // Leave empty or set a default message
     }
 
 
