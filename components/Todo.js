@@ -1,22 +1,27 @@
 class Todo {
-  constructor(data, selector) {
+  constructor(data, selector, handleCheck, handleDelete) {
     this._data = data;
+    this._name = data.name;
+    this._date = data.date;
+    this._id = data.id;
     this._templateElement = document.querySelector(selector);
+    this._completed = data.completed;
+    this._handleCheck = handleCheck; // Function to handle checkbox state change
+    this._handleDelete = handleDelete; // Function to handle delete action
   }
 
   _setEventListeners() {
-    // TODO - set up delete button handle
-    this._todoCheckboxEl.addEventListener("change", () => {
-      this._data.completed = !this._data.completed;
-      console.log(this._data.completed);
+    this._deleteBtnEl.addEventListener("click", () => {
+      this._handleDelete(this._completed);
+      this._remove });
+  this._checkboxEl.addEventListener("change", () => {
+      this._toggleCompletion();
+      this._handleCheck(this._completed); // Call the handler with the new state and ID
     });
 
     const todoDeleteBtn = this._todoElement.querySelector(".todo__delete-btn");
-
-    // Handle delete button click
-    todoDeleteBtn.addEventListener("click", () => {
-      this._handleDelete();
-    });
+ 
+   
   }
 
   _generateCheckboxEl() {
@@ -27,12 +32,23 @@ class Todo {
     this._todoLabel.setAttribute("for", `todo-${this._data.id}`);
   }
 
-  _handleDelete() {
+toggleCompletion = () => {
+  this._completed = !this._completed;
+
+  _removeTodo = () => {
+    // Remove the todo from the list
+this._todoElement.remove(
+  this._element = null, // Clean up reference
+)};
+
+
+  _handleDelete()  
     // Remove the todo element from the DOM
     this._todoElement.remove();
     this._todoElement = null; // Clean up reference
     console.log(`Todo with ID ${this._data.id} deleted`);
   }
+
 
   _formatDate(dateString) {
     // Format the date (e.g., "2025-04-10" -> "April 10, 2025")
