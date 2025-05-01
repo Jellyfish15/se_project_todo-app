@@ -14,22 +14,8 @@ const addTodoForm = document.forms["add-todo-form"];
 const addTodoCloseBtn = addTodoPopupEl.querySelector(".popup__close");
 const todosList = document.querySelector(".todos__list");
 const todoCounter = new TodoCounter(initialTodos, ".counter__text");
+const newTodoValidator = new FormValidator(validationConfig, addTodoForm);
 
-
-const addTodoPopup = new PopupWithForm ({ 
-  popupSelector: "#add-todo-popup",
-  handleFormSubmit: (data) => {
-    const todo = new Todo(data, "#todo-template");
-    const todoElement = todo.getView();
-    todosList.prepend(todoElement);
-    addTodoPopup.close();
-    newTodoValidator.resetValidation();
-  
-  }
-});
-
-
-// Define handleCheck as a standalone function
 function handleCheck(todoElement, data) {
   const todoCheckboxEl = todoElement.querySelector(".todo__completed");
   data.completed = !data.completed;
@@ -37,25 +23,45 @@ function handleCheck(todoElement, data) {
   todoCounter.updateCompleted(data.completed ? 1 : -1);
 }
 
-function handleDelete(completed) {
+function handleDelete (completed) {
   if (completed) {
     todoCounter.updateCompleted(false);
   }
 }
 
+
+const addTodoPopup = new PopupWithForm ({ 
+  popupSelector: "#add-todo-popup",
+  handleFormSubmit: (data) => {
+    const todo = new Todo(data, "#todo-template", handleCheck, handleDelete);
+    const todoElement = todo.getView();
+
+    section.addItem(todoElement);
+    addTodoPopup.close();
+    newTodoValidator.resetValidation();
+  }
+});
+
+addTodoPopup.setEventListeners();
+
+
+const generateTodo = (data) => {
+  const todo = new Todo(data, "#todo-template", handleCheck, handleDelete);
+  const todoElement = todo.getView();
+  return todoElement;
+};
  
 const section = new Section({ 
-  items: [], // pass initial todos
-  renderer:() => {
-    //generateTodo(item); // Generate the todo element
-    //todosList.prepend(todoElement); // Add the todo to the top of the list
-    //refer to the forEach in this file
+  items: initialTodos, 
+  renderer:(item) => {
+    const todoElement = generateTodo(item);
+    section.addItem(todoElement);
   }, 
 
   containerSelector: ".todos__list"
 });
 
-// call section instances renderItems method to render initial todos
+section.renderItems();
 
 const openModal = (modal) => {
   modal.classList.add("popup_visible");
@@ -65,12 +71,7 @@ const closeModal = (modal) => {
   modal.classList.remove("popup_visible");
 };
 
-// The logic in this function should all be handled in the Todo class.
-const generateTodo = (data) => {
-  const todo = new Todo(data, "#todo-template");
-  const todoElement = todo.getView();
-  return todoElement;
-};
+
 
 function handleEscapeClose(evt) {
   if (evt.key === "Escape") {
@@ -88,7 +89,6 @@ addTodoCloseBtn.addEventListener("click", () => {
   closeModal(addTodoPopupEl);
 });
 
-console.log(initialTodos)
 
 /*
 const renderTodo = (data) => {
