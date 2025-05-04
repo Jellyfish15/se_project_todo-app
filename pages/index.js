@@ -16,12 +16,7 @@ const todosList = document.querySelector(".todos__list");
 const todoCounter = new TodoCounter(initialTodos, ".counter__text");
 const newTodoValidator = new FormValidator(validationConfig, addTodoForm);
 
-function handleCheck(todoElement, data) {
-  const todoCheckboxEl = todoElement.querySelector(".todo__completed");
-  data.completed = !data.completed;
-  todoCheckboxEl.checked = data.completed;
-  todoCounter.updateCompleted(data.completed ? 1 : -1);
-}
+
 
 function handleDelete (completed) {
   if (completed) {
@@ -29,6 +24,12 @@ function handleDelete (completed) {
   }
 }
 
+function handleCheck(todoElement, data) {
+  const todoCheckboxEl = todoElement.querySelector(".todo__completed");
+  data.completed = !data.completed;
+  todoCheckboxEl.checked = data.completed;
+  todoCounter.updateCompleted(data.completed);
+}
 
 const addTodoPopup = new PopupWithForm ({ 
   popupSelector: "#add-todo-popup",
@@ -38,9 +39,13 @@ const addTodoPopup = new PopupWithForm ({
 
     section.addItem(todoElement);
     addTodoPopup.close();
+    addTodoForm.reset();
     newTodoValidator.resetValidation();
+    newTodoValidator.enableValidation();
   }
 });
+console.log(handleCheck);
+
 
 addTodoPopup.setEventListeners();
 

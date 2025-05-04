@@ -10,6 +10,7 @@ By creating various ToDos you'll never forget the important things in your daily
 
  - Javascript
  - Object Oriented Programming
+ - Loose Coupling
 
 ## Deployment
 
