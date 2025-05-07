@@ -6,9 +6,8 @@ class PopupWithForm extends Popup {
     this._handleFormSubmit = handleFormSubmit;
     this._form = this._popup.querySelector('.popup__form');
     this._inputList = Array.from(this._popup.querySelectorAll('.popup__input')); // Fixed
-
   }
-
+ 
   _getInputValues() {
     const inputValues = {};
     this._inputList.forEach((input) => {
@@ -27,11 +26,13 @@ class PopupWithForm extends Popup {
     });
   }
 
+  open() {
+    super.open(); // Ensure the parent class's open method is called
+  }
+  
   close() {
     super.close();
-    
   }
 }
-
 
 export default PopupWithForm;

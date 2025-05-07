@@ -30,22 +30,26 @@ function handleDelete (completed) {
 
 function handleCheck(isChecked) {
   todoCounter.updateCompleted(isChecked); // update the completed counter
+
 }
 
 const addTodoPopup = new PopupWithForm ({ 
   popupSelector: "#add-todo-popup",
   handleFormSubmit: (data) => {
     renderTodo(data); // Render the new todo
-
-    section.addItem(todoElement);
+    todoCounter.updateTotal(true); // Increment the total counter
     addTodoPopup.close();
     addTodoForm.reset();
     newTodoValidator.resetValidation();
+
+
   }
 });
 
 addTodoPopup.setEventListeners();
-
+addTodoButton.addEventListener("click", () => {
+  addTodoPopup.open();
+});
 
 const generateTodo = (data) => {
   const todo = new Todo(data, "#todo-template", handleCheck, handleDelete);
@@ -58,12 +62,12 @@ const section = new Section({
   renderer:(item) => {
     renderTodo(item);  // just one line of code instead of the 2 lines
   }, 
-
+  
   containerSelector: ".todos__list"
 });
 
-section.renderItems();
 
+section.renderItems();
 newTodoValidator.enableValidation();
 
 

@@ -20,7 +20,6 @@ class Popup {
   close() {
     this._popup.classList.remove('popup_visible');
     document.removeEventListener("keydown", this._handleEscKey);
-
   }
 
   setEventListeners() {
@@ -35,4 +34,5 @@ class Popup {
     });
   }
 }
+
  export default Popup;
