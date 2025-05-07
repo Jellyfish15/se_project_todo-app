@@ -25,7 +25,9 @@ class Todo {
     });
 
     this._todoCheckboxEl.addEventListener("change", () => {
-      this._handleCheck(this._todoElement, this._data);
+      this._completed = !this._completed;
+
+      this._handleCheck(this._completed);
     });
   }
 

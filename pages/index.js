@@ -16,36 +16,33 @@ const todosList = document.querySelector(".todos__list");
 const todoCounter = new TodoCounter(initialTodos, ".counter__text");
 const newTodoValidator = new FormValidator(validationConfig, addTodoForm);
 
-
+const renderTodo = (item) => {
+  const todo = generateTodo(item);
+  section.addItem(todo);
+};
 
 function handleDelete (completed) {
+  todoCounter.updateTotal(false);  // update the total counter
   if (completed) {
     todoCounter.updateCompleted(false);
   }
 }
 
-function handleCheck(todoElement, data) {
-  const todoCheckboxEl = todoElement.querySelector(".todo__completed");
-  data.completed = !data.completed;
-  todoCheckboxEl.checked = data.completed;
-  todoCounter.updateCompleted(data.completed);
+function handleCheck(isChecked) {
+  todoCounter.updateCompleted(isChecked); // update the completed counter
 }
 
 const addTodoPopup = new PopupWithForm ({ 
   popupSelector: "#add-todo-popup",
   handleFormSubmit: (data) => {
-    const todo = new Todo(data, "#todo-template", handleCheck, handleDelete);
-    const todoElement = todo.getView();
+    renderTodo(data); // Render the new todo
 
     section.addItem(todoElement);
     addTodoPopup.close();
     addTodoForm.reset();
     newTodoValidator.resetValidation();
-    newTodoValidator.enableValidation();
   }
 });
-console.log(handleCheck);
-
 
 addTodoPopup.setEventListeners();
 
@@ -55,12 +52,11 @@ const generateTodo = (data) => {
   const todoElement = todo.getView();
   return todoElement;
 };
- 
+
 const section = new Section({ 
   items: initialTodos, 
   renderer:(item) => {
-    const todoElement = generateTodo(item);
-    section.addItem(todoElement);
+    renderTodo(item);  // just one line of code instead of the 2 lines
   }, 
 
   containerSelector: ".todos__list"
@@ -68,31 +64,7 @@ const section = new Section({
 
 section.renderItems();
 
-const openModal = (modal) => {
-  modal.classList.add("popup_visible");
-};
-
-const closeModal = (modal) => {
-  modal.classList.remove("popup_visible");
-};
-
-
-
-function handleEscapeClose(evt) {
-  if (evt.key === "Escape") {
-    const opemedModal = document.querySelector(".popup_visible");
-    addTodoPopup.close();
-  }
-}
-
-addTodoButton.addEventListener("click", () => {
-  addTodoPopup.open();
-  document.addEventListener("keyup", handleEscapeClose);
-});
-
-addTodoCloseBtn.addEventListener("click", () => {
-  closeModal(addTodoPopupEl);
-});
+newTodoValidator.enableValidation();
 
 
 /*
